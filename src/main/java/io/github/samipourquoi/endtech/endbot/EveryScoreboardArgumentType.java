@@ -6,8 +6,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import net.minecraft.command.argument.ObjectiveArgumentType;
 import net.minecraft.command.CommandSource;
+import net.minecraft.command.argument.ScoreboardObjectiveArgumentType;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EveryScoreboardArgumentType extends ObjectiveArgumentType {
+public class EveryScoreboardArgumentType extends ScoreboardObjectiveArgumentType {
     public static final Pattern EVERY_SCOREBOARD = Pattern.compile("^([mcupbdkz]|kb)-(\\w*)$");
     public static final Pattern WRONG_EVERY_SCOREBOARD = Pattern.compile("^([^mcupbdkz]|kb)-(\\w*)$");
     public static final Iterable<String> PREFIXES = Arrays.asList("m-", "u-", "c-", "b-", "p-", "d-", "k-", "kb-", "z-");

@@ -29,7 +29,7 @@ public class MixinTradeOffer implements PerfectTradeHelper {
 
     @Override
     public boolean isPerfectTrade() {
-        ItemStack sellItemStack = mixinThis.getSellItem();
+        ItemStack sellItemStack = mixinThis.copySellItem();
         Item sellItem = sellItemStack.getItem();
 
         if (sellItem instanceof EnchantedBookItem) {

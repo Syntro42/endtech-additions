@@ -20,7 +20,7 @@ public class ETAdditionsSettings {
     private static MinecraftServer server;
 
     public static int setScoreboardTotal(ServerCommandSource source, boolean boolean1) {
-        MinecraftServer server = source.getMinecraftServer();
+        MinecraftServer server = source.getServer();
         scoreboardTotals = boolean1;
 
         source.sendFeedback(new TranslatableText("Set scoreboardTotals to " + scoreboardTotals),true);

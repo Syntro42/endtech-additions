@@ -1,15 +1,14 @@
 package io.github.samipourquoi.endtech.helpers;
 
+import com.google.common.collect.Lists;
+import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagGroup;
+import net.minecraft.util.Identifier;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
-
-import com.google.common.collect.Lists;
-
-import net.minecraft.tag.Tag;
-import net.minecraft.tag.TagGroup;
-import net.minecraft.util.Identifier;
 
 public class GetTagsForHelper {
 
