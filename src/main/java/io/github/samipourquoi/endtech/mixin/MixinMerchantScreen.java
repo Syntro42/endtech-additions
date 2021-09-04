@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.samipourquoi.endtech.helpers.PerfectTradeHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.MerchantScreen;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -32,9 +33,10 @@ public class MixinMerchantScreen extends Screen {
     @Overwrite
     private void renderArrow(MatrixStack matrixStack, TradeOffer tradeOffer, int i, int j) {
         RenderSystem.enableBlend();
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
 
         if (((PerfectTradeHelper) tradeOffer).isPerfectTrade()) {
-            this.client.getTextureManager().bindTexture(PERFECT_TRADES_TEXTURE);
+            RenderSystem.setShaderTexture(0, PERFECT_TRADES_TEXTURE);
 
             if (!tradeOffer.isDisabled()) {
                 drawTexture(matrixStack, i + 5 + 35 + 20, j + 3, this.getZOffset(), 0.0F, 0.0F, 10, 9, 9, 20);
@@ -42,7 +44,7 @@ public class MixinMerchantScreen extends Screen {
                 drawTexture(matrixStack, i + 5 + 35 + 20, j + 3, this.getZOffset(), 10.0F, 0.0F, 10, 9, 9, 20);
             }
         } else {
-            this.client.getTextureManager().bindTexture(TEXTURE);
+            RenderSystem.setShaderTexture(0, TEXTURE);
 
             if (tradeOffer.isDisabled()) {
                 drawTexture(matrixStack, i + 5 + 35 + 20, j + 3, this.getZOffset(), 25.0F, 171.0F, 10, 9, 256, 512);

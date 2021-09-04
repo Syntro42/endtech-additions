@@ -1,20 +1,11 @@
 package io.github.samipourquoi.endtech.mixin;
 
 import io.github.samipourquoi.endtech.helpers.StatsAccessor;
-import net.minecraft.block.Block;
 import net.minecraft.stat.StatFormatter;
-import net.minecraft.stat.StatType;
 import net.minecraft.stat.Stats;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Registers the custom stats. Current list is:
@@ -32,15 +23,11 @@ public abstract class MixinStats {
     private static Identifier register(String string, StatFormatter statFormatter) {
         return null;
     }
-
-    @Shadow @Final public static StatType<Identifier> CUSTOM;
     private static final Identifier DIG;
     private static final Identifier PICKS;
     private static final Identifier SHOVELS;
     private static final Identifier AXES;
     private static final Identifier HOES;
-
-    private static final HashMap<String, Identifier> CUSTOM_TAGS = new HashMap<>();
 
     static {
         // Registers the custom stats
@@ -57,21 +44,5 @@ public abstract class MixinStats {
         StatsAccessor.SHOVELS = SHOVELS;
         StatsAccessor.AXES = AXES;
         StatsAccessor.HOES = HOES;
-
-        // Registers the stats for the tags (#wool, #logs, ...)
-        List<? extends Tag.Identified<Block>> blockTags = BlockTags.getRequiredTags();
-        blockTags.forEach(blockIdentified -> {
-            registerTagStats("mined_" + blockIdentified.getId().getPath());
-            registerTagStats("used_" + blockIdentified.getId().getPath());
-            registerTagStats("crafted_" + blockIdentified.getId().getPath());
-        });
-        StatsAccessor.CUSTOM_TAGS = CUSTOM_TAGS;
-    }
-
-    private static void registerTagStats(String path) {
-        Identifier id = new Identifier(path);
-        Registry.register(Registry.CUSTOM_STAT, path, id);
-        CUSTOM.getOrCreateStat(id);
-        CUSTOM_TAGS.put(path, id);
     }
 }
