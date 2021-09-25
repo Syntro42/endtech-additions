@@ -34,6 +34,9 @@ public abstract class MixinItemStack {
         TagGroup<Block> tagGroup = BlockTags.getTagGroup();
         Collection<Identifier> tag = GetTagsForHelper.getTagsForTagGroup(tagGroup, (Block)(Object) block);
         for (Identifier key: tag) {
+            if (world.isClient())
+                break;
+
             Identifier statTagID = StatsAccessor.CUSTOM_TAGS.get("crafted_" + key.getPath());
             player.increaseStat(statTagID, amount);
         }

@@ -62,7 +62,11 @@ public abstract class MixinBlock {
         TagGroup<Block> tagGroup = BlockTags.getTagGroup();
         Collection<Identifier> tag = GetTagsForHelper.getTagsForTagGroup(tagGroup, (Block)(Object) this);
         for (Identifier keys: tag) {
+            if (world.isClient())
+                break;
+
             Identifier statTagID = StatsAccessor.CUSTOM_TAGS.get("used_" + keys.getPath());
+
             if (placer instanceof PlayerEntity) {
                 ((PlayerEntity) placer).incrementStat(statTagID);
             }
