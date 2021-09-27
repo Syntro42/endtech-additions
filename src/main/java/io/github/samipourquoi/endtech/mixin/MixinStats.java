@@ -1,11 +1,10 @@
 package io.github.samipourquoi.endtech.mixin;
 
 import io.github.samipourquoi.endtech.helpers.StatsAccessor;
-import net.minecraft.stat.StatFormatter;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 
 /**
  * Registers the custom stats. Current list is:
@@ -19,10 +18,6 @@ import org.spongepowered.asm.mixin.Shadow;
  */
 @Mixin(Stats.class)
 public abstract class MixinStats {
-    @Shadow
-    private static Identifier register(String string, StatFormatter statFormatter) {
-        return null;
-    }
     private static final Identifier DIG;
     private static final Identifier PICKS;
     private static final Identifier SHOVELS;
@@ -31,11 +26,11 @@ public abstract class MixinStats {
 
     static {
         // Registers the custom stats
-        DIG = register("dig", StatFormatter.DEFAULT);
-        PICKS = register("picks", StatFormatter.DEFAULT);
-        SHOVELS = register("shovels", StatFormatter.DEFAULT);
-        AXES = register("axes", StatFormatter.DEFAULT);
-        HOES = register("hoes", StatFormatter.DEFAULT);
+        DIG = Registry.register(Registry.CUSTOM_STAT,"dig", new Identifier("dig"));
+        PICKS = Registry.register(Registry.CUSTOM_STAT,"picks", new Identifier("picks"));
+        SHOVELS = Registry.register(Registry.CUSTOM_STAT,"shovels", new Identifier("shovels"));
+        AXES = Registry.register(Registry.CUSTOM_STAT,"axes", new Identifier("axes"));
+        HOES = Registry.register(Registry.CUSTOM_STAT,"hoes", new Identifier("hoes"));
 
         // Pass through the custom stats to a class, allowing
         // us to retrieve these fields later on.

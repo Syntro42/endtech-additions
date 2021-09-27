@@ -29,7 +29,6 @@ public class StatsRegister {
 
         if (Registry.CUSTOM_STAT.containsId(id) == false) {
             Registry.register(Registry.CUSTOM_STAT, path, id);
-            Stats.CUSTOM.getOrCreateStat(id);
             CUSTOM_TAGS.put(path, id);
         }
     }
