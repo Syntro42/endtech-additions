@@ -17,7 +17,6 @@ import java.nio.file.Path;
 
 public class ETAdditionsSettings {
     public static boolean scoreboardTotals;
-    private static MinecraftServer server;
 
     public static int setScoreboardTotal(ServerCommandSource source, boolean boolean1) {
         MinecraftServer server = source.getServer();
