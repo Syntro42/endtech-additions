@@ -11,8 +11,7 @@ public class EndbotCommandDispatcher {
     static {
         ScoreboardEndbotCommand.register(INSTANCE);
         HelpEndbotCommand.register(INSTANCE);
-        PresetsEndbotCommand.register(INSTANCE);
-        PosEndBotCommand.register(INSTANCE);
+		PosEndbotCommand.register(INSTANCE);
         BackupEndbotCommand.register(INSTANCE);
     }
 }
