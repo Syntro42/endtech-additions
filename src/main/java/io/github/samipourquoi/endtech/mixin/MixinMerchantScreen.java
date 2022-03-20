@@ -8,18 +8,14 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.village.TradeOffer;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MerchantScreen.class)
 public class MixinMerchantScreen extends Screen {
-    @Shadow @Final private static Identifier TEXTURE;
-
-    private static final Identifier PERFECT_TRADES_TEXTURE = new Identifier("textures/gui/container/perfect_trades.png");
+     private static final Identifier PERFECT_TRADES_TEXTURE = new Identifier("textures/gui/container/perfect_trades.png");
 
     // Just to avoid IDE errors
     protected MixinMerchantScreen(Text title) {

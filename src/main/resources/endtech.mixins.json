@@ -5,17 +5,18 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "MixinBlock",
-    "MixinStats",
-    "MixinItemStack",
-    "MixinScoreboardTotal",
+    "MixinBlockTags",
     "MixinCommandManager",
+    "MixinItemStack",
     "MixinMinecraftServer",
-    "MixinServerStatHandler"
+    "MixinScoreboardTotal",
+    "MixinServerStatHandler",
+    "MixinStats"
   ],
   "client": [
+    "MixinCommandSuggestor",
     "MixinMerchantScreen",
-    "MixinTradeOffer",
-    "MixinCommandSuggestor"
+    "MixinTradeOffer"
   ],
   "injectors": {
     "defaultRequire": 1
