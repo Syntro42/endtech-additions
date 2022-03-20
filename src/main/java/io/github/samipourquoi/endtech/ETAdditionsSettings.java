@@ -54,8 +54,7 @@ public class ETAdditionsSettings {
             String line = "";
             while ((line = reader.readLine()) != null) {
                 String value = line.split(" ")[1];
-                boolean boolean2 = Boolean.parseBoolean(value);
-                scoreboardTotals = boolean2;
+                scoreboardTotals = Boolean.parseBoolean(value);
             }
         } catch (NoSuchFileException e) {
             try {

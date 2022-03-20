@@ -18,7 +18,6 @@ public class ScoreboardEndbotCommand {
                             .then(literal("total"))
                             .then(literal("query")
                                     .then(argument("player", EntityArgumentType.player()))))
-                    //.then(literal("clear"))
         );
     }
 }

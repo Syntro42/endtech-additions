@@ -1,7 +1,6 @@
 package io.github.samipourquoi.endtech.mixin;
 
 import io.github.samipourquoi.endtech.ETAdditionsSettings;
-import io.github.samipourquoi.endtech.helpers.StatsRegister;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,7 +12,5 @@ public class MixinMinecraftServer {
     @Inject(method = "loadWorld", at = @At("HEAD"))
     private void loadConf(CallbackInfo ci) {
         ETAdditionsSettings.loadConfigSettings((MinecraftServer) (Object) this);
-
-        StatsRegister.registerCustomTagStats();
     }
 }

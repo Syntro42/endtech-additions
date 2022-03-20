@@ -25,10 +25,10 @@ import java.util.concurrent.CompletableFuture;
 @Environment(EnvType.CLIENT)
 @Mixin(CommandSuggestor.class)
 public abstract class MixinCommandSuggestor {
-    @Shadow @Final private TextFieldWidget textField;
+    @Shadow @Final TextFieldWidget textField;
     @Shadow private ParseResults<CommandSource> parse;
-    @Shadow private boolean completingSuggestions;
-    @Shadow private CommandSuggestor.SuggestionWindow window;
+    @Shadow boolean completingSuggestions;
+    @Shadow CommandSuggestor.SuggestionWindow window;
     @Shadow @Final private List<OrderedText> messages;
     @Shadow @Final private boolean slashOptional;
     @Shadow @Final private boolean suggestingWhenEmpty;
@@ -37,7 +37,7 @@ public abstract class MixinCommandSuggestor {
     @Shadow private static int getLastPlayerNameStart(String input) {
         return 0;
     }
-    @Shadow @Final private MinecraftClient client;
+    @Shadow @Final MinecraftClient client;
 
     /**
      * @reason Include endbot commands suggestions
@@ -53,7 +53,7 @@ public abstract class MixinCommandSuggestor {
         }
 
         if (!this.completingSuggestions) {
-            this.textField.setSuggestion((String) null);
+            this.textField.setSuggestion(null);
             this.window = null;
         }
 
@@ -96,7 +96,7 @@ public abstract class MixinCommandSuggestor {
             String string2 = string.substring(0, i);
             j = getLastPlayerNameStart(string2);
             Collection<String> collection = this.client.player.networkHandler.getCommandSource().getPlayerNames();
-            this.pendingSuggestions = CommandSource.suggestMatching((Iterable)collection, new SuggestionsBuilder(string2, j));
+            this.pendingSuggestions = CommandSource.suggestMatching(collection, new SuggestionsBuilder(string2, j));
         }
 
     }

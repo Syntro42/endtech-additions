@@ -39,10 +39,9 @@ public class MixinScoreboardTotal extends Scoreboard {
 
     public ScoreboardPlayerUpdateS2CPacket scoreboardTotalPacket(ScoreboardObjective objective) {
         int totalScore = 0;
-        Iterator<ScoreboardPlayerScore> scores = this.getAllPlayerScores(objective).iterator();
 
-        while(scores.hasNext()) {
-            totalScore += scores.next().getScore();
+        for (ScoreboardPlayerScore scoreboardPlayerScore : this.getAllPlayerScores(objective)) {
+            totalScore += scoreboardPlayerScore.getScore();
         }
 
         return new ScoreboardPlayerUpdateS2CPacket(ServerScoreboard.UpdateMode.CHANGE, objective.getName(), "Total", totalScore);
