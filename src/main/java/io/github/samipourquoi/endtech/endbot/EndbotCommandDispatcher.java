@@ -3,7 +3,6 @@ package io.github.samipourquoi.endtech.endbot;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.command.CommandSource;
 
 @Environment(EnvType.CLIENT)
 public class EndbotCommandDispatcher {

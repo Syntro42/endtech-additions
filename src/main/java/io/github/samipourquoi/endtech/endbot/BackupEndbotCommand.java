@@ -1,7 +1,6 @@
 package io.github.samipourquoi.endtech.endbot;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.minecraft.command.CommandSource;
 
 import static com.mojang.brigadier.builder.LiteralArgumentBuilder.literal;
 
