@@ -1,6 +1,5 @@
 package io.github.samipourquoi.endtech.mixin;
 
-import io.github.samipourquoi.endtech.helpers.GetTagsForHelper;
 import io.github.samipourquoi.endtech.helpers.StatsAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -8,10 +7,14 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.AxeItem;
+import net.minecraft.item.HoeItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ShovelItem;
 import net.minecraft.state.StateManager;
 import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.TagGroup;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Collection;
+import java.util.Map;
 
 @Mixin(Block.class)
 public abstract class MixinBlock {
@@ -47,25 +50,29 @@ public abstract class MixinBlock {
             }
         }
 
-        //noinspection MethodCallSideOnly
-        TagGroup<Block> tagGroup = BlockTags.getTagGroup();
-        Collection<Identifier> tag = GetTagsForHelper.getTagsForTagGroup(tagGroup, (Block)(Object) this);
-        for (Identifier keys: tag) {
-            Identifier statTagID = StatsAccessor.CUSTOM_TAGS.get("mined_" + keys.getPath());
-            player.incrementStat(statTagID);
-        }
+        Map<Identifier, Tag<Block>> tags = BlockTags.getTagGroup().getTags();
+        tags.forEach((identifier, tag) -> {
+            if (tag.contains(this.asBlock())) {
+                Identifier statTagID = StatsAccessor.CUSTOM_TAGS.get("mined_" + identifier.getPath());
+                player.incrementStat(statTagID);
+            }
+        });
     }
 
     @Inject(method = "onPlaced", at = @At("HEAD"))
     private void incrementUsedStats(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack, CallbackInfo ci) {
-        //noinspection MethodCallSideOnly
-        TagGroup<Block> tagGroup = BlockTags.getTagGroup();
-        Collection<Identifier> tag = GetTagsForHelper.getTagsForTagGroup(tagGroup, (Block)(Object) this);
-        for (Identifier keys: tag) {
-            Identifier statTagID = StatsAccessor.CUSTOM_TAGS.get("used_" + keys.getPath());
-            if (placer instanceof PlayerEntity) {
-                ((PlayerEntity) placer).incrementStat(statTagID);
-            }
+        if (!world.isClient()) {
+            Map<Identifier, Tag<Block>> tags = BlockTags.getTagGroup().getTags();
+
+            tags.forEach((identifier, tag) -> {
+                if (tag.contains(this.asBlock())) {
+                    Identifier statTagID = StatsAccessor.CUSTOM_TAGS.get("used_" + identifier.getPath());
+
+                    if (placer instanceof PlayerEntity) {
+                        ((PlayerEntity) placer).incrementStat(statTagID);
+                    }
+                }
+            });
         }
     }
 }

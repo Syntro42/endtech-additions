@@ -53,7 +53,7 @@ public abstract class MixinCommandSuggestor {
         }
 
         if (!this.completingSuggestions) {
-            this.textField.setSuggestion((String) null);
+            this.textField.setSuggestion(null);
             this.window = null;
         }
 
@@ -96,7 +96,7 @@ public abstract class MixinCommandSuggestor {
             String string2 = string.substring(0, i);
             j = getLastPlayerNameStart(string2);
             Collection<String> collection = this.client.player.networkHandler.getCommandSource().getPlayerNames();
-            this.pendingSuggestions = CommandSource.suggestMatching((Iterable)collection, new SuggestionsBuilder(string2, j));
+            this.pendingSuggestions = CommandSource.suggestMatching(collection, new SuggestionsBuilder(string2, j));
         }
 
     }

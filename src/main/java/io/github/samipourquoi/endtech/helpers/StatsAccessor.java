@@ -1,6 +1,7 @@
 package io.github.samipourquoi.endtech.helpers;
 
 import io.github.samipourquoi.endtech.mixin.MixinStats;
+import net.minecraft.stat.Stat;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
@@ -23,4 +24,13 @@ public class StatsAccessor {
     public static Identifier HOES;
 
     public static HashMap<String, Identifier> CUSTOM_TAGS;
+
+    public static boolean isCustomStat(Stat<?> stat) {
+        return StatsAccessor.CUSTOM_TAGS.containsValue(stat.getValue())||
+                StatsAccessor.PICKS.equals(stat.getValue()) ||
+                StatsAccessor.SHOVELS.equals(stat.getValue()) ||
+                StatsAccessor.AXES.equals(stat.getValue()) ||
+                StatsAccessor.HOES.equals(stat.getValue()) ||
+                StatsAccessor.DIG.equals(stat.getValue());
+    }
 }
